@@ -3,9 +3,8 @@ import {Button, Container, Heading} from "@chakra-ui/react"
 import CartItem from "./CartItem"
 import {useRecoilState, useRecoilValue} from "recoil"
 import {cartState, dataState, moneyState} from "../store/atoms"
-import {ItemType} from "../types/Item.ts";
-import {totalPriceSelector} from "../store/selectors.ts";
-
+import {ItemType} from "../types/Item"
+import {totalPriceSelector} from "../store/selectors"
 
 const Cart: FC = () => {
     const totalPrice = useRecoilValue(totalPriceSelector)
@@ -18,8 +17,9 @@ const Cart: FC = () => {
      }
 
      const buyProducts = () => {
+        const newData = structuredClone(data)
          cart.forEach((el: ItemType) => {
-             const element = data.find((el2: ItemType) => el.name === el2.name)
+             const element = newData.find((el2: ItemType) => el.name === el2.name)
              if (element) {
                  element.number -= el.number
              }
